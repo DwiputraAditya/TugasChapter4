@@ -12,8 +12,20 @@ public class AddressService {
     @Autowired
     AddressRepository addressRepository;
 
-    public void deleteAddress(Integer id) {
-//        Film film1 = filmRepository.findById(id).get();
-        addressRepository.deleteById(id);
+    public List<Address> getAllAddress() {
+        return addressRepository.findAll();
     }
+
+    public Address getAddressById(Integer address_id) {
+        return addressRepository.findById(address_id).get();
+    }
+
+    public void deleteAddress(Integer address_id) {
+        addressRepository.deleteById(address_id);
+    }
+
+    
+
+
+    
 }
