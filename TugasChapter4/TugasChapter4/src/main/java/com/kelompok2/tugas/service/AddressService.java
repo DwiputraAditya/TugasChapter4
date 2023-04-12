@@ -1,5 +1,6 @@
 package com.kelompok2.tugas.service;
 
+import com.kelompok2.tugas.exception.ResourceNotFoundException;
 import com.kelompok2.tugas.model.Address;
 import com.kelompok2.tugas.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Service
 public class AddressService {
-    
+
     @Autowired
     AddressRepository addressRepository;
 
@@ -21,8 +22,12 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
+    public Address getAddressById(Integer id) {
+        return addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Address not found with id " + id));
+    }
+
     public Address updateAddress(Integer id, Address address) {
-        Address address1 = addressRepository.findById(id).get();
+        Address address1 = addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Address not found with id " + id));
         address1.setAddress(address.getAddress());
         address1.setAddress2(address.getAddress2());
         address1.setDistrict(address.getDistrict());

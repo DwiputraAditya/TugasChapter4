@@ -1,5 +1,5 @@
-com\kelompok2\tugas\controller\AddressController.class
 com\kelompok2\tugas\model\Address.class
-com\kelompok2\tugas\service\AddressService.class
 com\kelompok2\tugas\TugasChapter4Application.class
 com\kelompok2\tugas\repository\AddressRepository.class
+com\kelompok2\tugas\controller\AddressController.class
+com\kelompok2\tugas\service\AddressService.class

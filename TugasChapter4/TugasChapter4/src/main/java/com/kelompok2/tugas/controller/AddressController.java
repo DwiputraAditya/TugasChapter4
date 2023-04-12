@@ -12,8 +12,14 @@ import java.util.List;
 @RequestMapping("/kelompok2chp4/")
 @RestController
 public class AddressController {
+
     @Autowired
     AddressService addressService;
+
+    @GetMapping("/")
+    public String index() {
+        return "Kelompok 2";
+    }
 
     @PostMapping("/addAddress")
     public ResponseEntity<Address> addAddress(@RequestBody Address address) {
@@ -26,6 +32,12 @@ public class AddressController {
     public ResponseEntity<List<Address>> getAddress() {
         List<Address> addresses = addressService.getAllAddress();
         return ResponseEntity.ok(addresses);
+    }
+
+    @GetMapping("/getAddressById")
+    public ResponseEntity<Address> getAddressById(@RequestParam(name = "addressId") Integer id) {
+        Address address = addressService.getAddressById(id);
+        return ResponseEntity.ok(address);
     }
 
     @PutMapping("/updateAddress")
