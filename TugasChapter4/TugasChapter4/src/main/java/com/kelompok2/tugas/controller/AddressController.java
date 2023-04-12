@@ -3,38 +3,40 @@ package com.kelompok2.tugas.controller;
 import com.kelompok2.tugas.model.Address;
 import com.kelompok2.tugas.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
 @RequestMapping("/kelompok2chp4/")
+@RestController
 public class AddressController {
     @Autowired
     AddressService addressService;
 
-    @GetMapping("/")
-    public ResponseEntity<String> index(){
-        return ResponseEntity.ok("Kelompok 2");
+    @PostMapping("/addAddress")
+    public ResponseEntity<Address> addAddress(@RequestBody Address address) {
+        Address address1 = addressService.addAddress(address);
+        return new ResponseEntity<Address>(address1, HttpStatus.CREATED);
     }
 
-    @GetMapping("/address")
-    public ResponseEntity<List<Address>> getAllAddress(){
-        List<Address> addressList = addressService.getAllAddress();
-        return ResponseEntity.ok(addressList);
+    //    read
+    @GetMapping("/getAddress")
+    public ResponseEntity<List<Address>> getAddress() {
+        List<Address> addresses = addressService.getAllAddress();
+        return ResponseEntity.ok(addresses);
     }
 
-    @GetMapping("/address/{address_id}")
-    public ResponseEntity<Address> getAddressById(@RequestParam(name = "address_id") Integer address_id){
-        Address address = addressService.getAddressById(address_id);
-        return ResponseEntity.ok(address);
+    @PutMapping("/updateAddress")
+    public ResponseEntity<String> updateAddress(@RequestParam(name = "addressId") Integer id, @RequestBody Address address) {
+        addressService.updateAddress(id, address);
+        return ResponseEntity.ok("Data berhasil di update");
     }
 
-    @DeleteMapping("/address/{address_id}")
-    public ResponseEntity<String> deleteAddress(@RequestParam(name = "address_id") Integer address_id){
-        addressService.deleteAddress(address_id);
+    @DeleteMapping("/deleteAddress")
+    public ResponseEntity<String> deleteAddress(@RequestParam(name = "addressId") Integer id) {
+        addressService.deleteAddress(id);
         return ResponseEntity.ok("Data Berhasil dihapus");
     }
-
 }
